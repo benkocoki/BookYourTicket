@@ -33,25 +33,25 @@
 		
 
 		echo "Choose your row number: " . PHP_EOL;
-		$row = fgets($f);
+		$row = (int)fgets($f);
 
 		echo "Choose your seat number: " . PHP_EOL;
 
-		$seat = fgets($f);
+		$seat = (int)fgets($f);
 
-		$object = returnCompartment($stadium, (int)$compartment);
+		$object = returnCompartment($stadium, $compartment);
 
-		if(((int)$row-1) > count($object->rows)){
+		if(($row-1) > count($object->rows)){
 			echo "Wrong... we have " . count($object->rows) . " rows" . PHP_EOL;
 			continue;
 		}
-		//echo count($object->rows[(int)$row-1]->seats);
-		if(((int)$seat-1) > count($object->rows[(int)$row-1]->seats)){
-			echo "Wrong... we have " . count($object->rows[(int)$row-1]->seats) . " seats in selected row!" . PHP_EOL;
+		//echo count($object->rows[$row-1]->seats);
+		if(($seat-1) > count($object->rows[$row-1]->seats)){
+			echo "Wrong... we have " . count($object->rows[$row-1]->seats) . " seats in selected row!" . PHP_EOL;
 			continue;
 		}
 
-		if($object->rows[(int)$row-1]->seats[(int)$seat-1]->taken){
+		if($object->rows[$row-1]->seats[$seat-1]->taken){
 			echo "It is taken" . PHP_EOL;
 			continue;
 		}
@@ -61,8 +61,8 @@
 		echo "Enter your last name" . PHP_EOL;
 		$lastName = fgets($f);
 
-		$object->rows[(int)$row-1]->seats[(int)$seat-1]->taken = true;
-		$object->rows[(int)$row-1]->seats[(int)$seat-1]->customer = new Customer($firstName, $lastName);
+		$object->rows[$row-1]->seats[$seat-1]->taken = true;
+		$object->rows[$row-1]->seats[$seat-1]->customer = new Customer($firstName, $lastName);
 		print_r($stadium);
 	}
 	
